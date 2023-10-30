@@ -1,6 +1,11 @@
 import React from "react";
 import s from "./../../styles/Category.module.css";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Category = () => {
+  const {id} = useParams;
+  const {list}  = useSelector(({categories})=>categories);
+  
   return (
     <section className={wrapper}>
       <h2>cat.name</h2>

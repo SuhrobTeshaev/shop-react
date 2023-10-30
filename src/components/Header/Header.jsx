@@ -1,14 +1,15 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import s from "./../../styles/Header.module.css";
 import LOGO from "./../../images/logo.svg";
 const Header = () => {
   return (
     <div className={s.header}>
       <div className={s.logo}>
-        <Link>
-          Home
+         <Link to='/'>
+          
           <img src={LOGO} alt="Stuff" />
-        </Link>
+        </Link> 
       </div>
       <div className={s.info}>
         <div className={s.user}>
@@ -37,14 +38,14 @@ const Header = () => {
         дальше идет логика
       </form>
       <div className={s.account}>
-        <Link className={s.favourites}>
+         <Link className={s.favourites} to={'/'}>
           <svg>иконка на феворитс</svg>
-        </Link>
-        <Link className={s.сфке}>
+        </Link> 
+         <Link className={s.сфке} to={'/'} >
           <svg>иконка на корзину</svg>
           логика для цифра под иконку корзины
           <span className={s.count}>cart.length</span>
-        </Link>
+        </Link>  
       </div>
     </div>
   );

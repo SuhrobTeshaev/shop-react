@@ -1,7 +1,9 @@
 import React from 'react'
-import './Product.css';
-export const Product = () => {
+import s from './../../styles/Product.module.css'
+const Product = () => {
   return (
     <div>Product</div>
   )
 }
+
+export default Product
