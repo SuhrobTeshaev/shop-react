@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+
 import { BASE_URL } from "../../utils/constants";
 import { shuffle } from "../../utils/common";
 
 export const getProducts = createAsyncThunk(
   "products/getProducts",
-  async (userId, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const response = await axios(`${BASE_URL}/products`);
       return response.data;
@@ -26,7 +27,7 @@ const productsSlice = createSlice({
   },
   reducers: {
     filterByPrice: (state, { payload }) => {
-      state.filtered.state.list.filter(({ price }) => price < payload);
+      state.filtered = state.list.filter(({ price }) => price < payload);
     },
     getRelatedProduct: (state, { payload }) => {
       const list = state.list.filter(({ category: { id } }) => id === payload);

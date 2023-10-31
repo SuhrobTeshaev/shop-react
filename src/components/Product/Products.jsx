@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 
 const Products = ({ title, products = [], style = {}, amount }) => {
   const list = products.filter((_, i) => i < amount);
-  
+
   return (
     <section className={s.products} style={style}>
       {title && <h2>{title}</h2>}
+      
       <div className={s.list}>
         {list.map(({ id, images, title, category: { name: cat }, price }) => (
           <Link className={s.product} key={id} to={`/products/${id}`}>

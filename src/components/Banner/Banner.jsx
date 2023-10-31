@@ -1,5 +1,7 @@
 import React from "react";
 import s from "./../../styles/Home.module.css";
+import bannerImg from './../../images/banner.png';
+
 const Banner = () => {
   return (
     <section className={s.banner}>
@@ -10,7 +12,7 @@ const Banner = () => {
         </p>
         <button className={s.more}>See more</button>
       </div>
-      <div className={s.right} style={{ backgroundImage: `url(S{bannerImg})` }}>
+      <div className={s.right} style={{ backgroundImage: `url(${bannerImg})` }}>
         <p className={s.discount}>
           Save up to
           <span>50%</span>off

@@ -1,11 +1,14 @@
 import React from 'react'
 import { Routes,Route } from 'react-router-dom'
+
 import { ROUTES } from '../../utils/Routes';
+
 import Profile from './../Profile/Profile';
 import SingleProduct from './../Product/SingleProduct';
 import SingleCategory from './../Categories/SingleCategory';
 import Home from './../Home/Home';
 import Cart from './../Cart/Cart';
+
 const AppRoutes = () => {
   return (
     <Routes>

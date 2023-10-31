@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from "react";
+
 import s from "./../../styles/Product.module.css";
+
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/Routes";
+import { addItemToCart } from "../../features/user/UserSlice";
 
 const SIZES = [4, 4.5, 5];
+
 const Product = (item) => {
   const { title, price, images, description } = item;
+
   const dispatch = useDispatch();
+
   const [currentImage, setCurrentImage] = useState();
   const [currentSize, setCurrentSize] = useState();
 
   useEffect(() => {
     if (!images.length) return;
+
     setCurrentImage(images[0]);
   }, [images]);
 
   const addToCart = () => {
-    dispatch(addToCart(item));
+    dispatch(addItemToCart(item));
   };
+  
   return (
     <section className={s.product}>
       <div className={s.images}>

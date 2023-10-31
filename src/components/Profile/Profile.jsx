@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import s from "./../../styles/Profile.module.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import {updateUsers} from './../../features/user/UserSlice';
+
+import s from "./../../styles/Profile.module.css";
+
+
 const Profile = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector(({ user }) => user);
+
   const [values, setValues] = useState({
     name: "",
     email: "",
     password: "",
     avatar: "",
   });
+
   useEffect(() => {
     if (!currentUser) return;
+
     setValues(currentUser);
   }, [currentUser]);
 
@@ -22,8 +29,11 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const isNotEmpty = Object.values(values).every((val) => val);
+
     if (!isNotEmpty) return;
+    
     dispatch(updateUsers(values));
   };
 

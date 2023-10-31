@@ -35,7 +35,7 @@ export const updateUsers = createAsyncThunk(
   "users/updateUsers",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.put(`${BASE_URL}/users`, payload);
+      const response = await axios.put(`${BASE_URL}/users/${payload.id}`, payload);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -43,6 +43,7 @@ export const updateUsers = createAsyncThunk(
     }
   }
 );
+
 const addCurrentUser = (state, { payload }) => {
   state.currentUser = payload;
 };
@@ -59,7 +60,8 @@ const userSlice = createSlice({
   reducers: {
     addItemToCart: (state, { payload }) => {
       let newCart = [...state.cart];
-      const found = state.cart.find(({ id }) => id === payload);
+      const found = state.cart.find(({ id }) => id === payload.id);
+
       if (found) {
         newCart = newCart.map((item) => {
           return item.id === payload.id
@@ -67,6 +69,7 @@ const userSlice = createSlice({
             : item;
         });
       } else newCart.push({ ...payload, quantity: 1 });
+      
       state.cart = newCart;
     },
     removeItemToCart: (state, { payload }) => {
@@ -79,7 +82,6 @@ const userSlice = createSlice({
       state.formType = payload;
     },
   },
-
   extraReducers: (builder) => {
     builder.addCase(createUsers.fulfilled, addCurrentUser);
     builder.addCase(loginUsers.fulfilled, addCurrentUser);

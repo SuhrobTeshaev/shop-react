@@ -16,12 +16,10 @@ const Home = () => {
   } = useSelector((state) => state);
   useEffect(
     () => {
-      if ((!list.length)) return;
+      if (!list.length) return;
       dispatch(filterByPrice(100));
-    },
-    dispatch,
-    list.length
-  );
+    },[dispatch,list.length]);
+
   return (
     <>
       <Poster />

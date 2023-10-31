@@ -6,8 +6,9 @@ import { useSelector } from "react-redux";
 import { useGetProductsQuery } from "./../../features/api/apiSlice";
 
 import Products from "../Product/Products";
+
 const Category = () => {
-  const { id } = useParams;
+  const { id } = useParams();
   const { list } = useSelector(({ categories }) => categories);
   const defaultValues = {
     title: "",
@@ -31,6 +32,7 @@ const Category = () => {
 
   useEffect(() => {
     if (!id) return;
+
     setValues(defaultValues);
     setItems([]);
     setEnd(false);
@@ -57,6 +59,7 @@ const Category = () => {
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     setItems([]);
     setEnd(false);
     setParams({ ...defaultParams, ...values });

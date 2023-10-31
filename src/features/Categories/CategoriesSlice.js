@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const getCategories = createAsyncThunk(
   "categories/getCategories",
-  async (userId, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const response = await axios(`${BASE_URL}/categories`);
       return response.data;
