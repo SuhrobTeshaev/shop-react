@@ -1,13 +1,46 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useGetProductsQuery } from "../../features/api/apiSlice";
+import { toggleForm } from "../../features/user/UserSlice";
+import { ROUTES } from "../../utils/Routes";
+
 import s from "./../../styles/Header.module.css";
 import LOGO from "./../../images/logo.svg";
+import AVATAR from './../../images/avatar.jpg';
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [searchValue, setSearchValue] = useState("");
+  const {currentUser, cart} = useSelector(({ user }) => user);
+
+  const [values, setValues] = useState({ name: "Guest", avatar: AVATAR });
+
+  const { data, isLoading } = useGetProductsQuery({ title: searchValue });
+
+  useEffect(()=>{
+    if(!currentUser) return;
+    setValues(currentUser);
+  },[currentUser]);
+
+  const handleClick = () => {
+    if (!currentUser) dispatch(toggleForm(true));
+    else navigate(ROUTES.PROFILE);
+  };
+
+  const handleSearch = ({target:{value}}) => {
+   setSearchValue(value);
+  };
+
+
+
   return (
     <div className={s.header}>
       <div className={s.logo}>
-        <Link to="/">
+        <Link to={ROUTES.HOME}>
           <img src={LOGO} alt="Stuff" />
         </Link>
       </div>
@@ -15,9 +48,9 @@ const Header = () => {
         <div className={s.user}>
           <div
             className={s.avatar}
-            style={{ backgroundImage: `url(${"values.avatar"})` }}
+            style={{ backgroundImage: `url(${values.avatar})` }}
           >
-            <div className={s.username}>values.name</div>
+            <div className={s.username}>{values.name}</div>
           </div>
         </div>
       </div>
@@ -40,14 +73,37 @@ const Header = () => {
             name="search"
             placeholder="Search for anything..."
             autoComplete="off"
-            onChange={() => {}}
-            value={"searchValue"}
+            onChange={handleSearch}
+            value={searchValue}
           />
         </div>
-        дальше идет логика
+       {searchValue && (
+        <div className={s.box}>
+          {isLoading
+          ?'Loading'
+        :!data.length
+        ? 'No results'
+      :data.map(({title,images,id})=>{
+        return (
+          <Link
+          key={id}
+          onClick = {() => setSearchValue('')}
+          className={s.item}
+          to={`/products/${id}`}
+          >
+            <div 
+            className={s.image}
+            style={{backgroundImage:`url(${images[0]})`}}
+            />
+            <div className={s.title}>{title}</div>
+          </Link>
+        )
+      })}
+        </div>
+       )}
       </form>
       <div className={s.account}>
-        <Link className={s.favourites} to={"/"}>
+        <Link className={s.favourites} to={ROUTES.HOME}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -59,7 +115,7 @@ const Header = () => {
             <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
           </svg>
         </Link>
-        <Link className={s.cart} to={"/"}>
+        <Link to={ROUTES.CART} className={s.cart} >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -70,7 +126,7 @@ const Header = () => {
           >
             <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0v-2zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1z" />
           </svg>
-          <span className={s.count}>cart.length</span>
+          <span className={s.count}>{cart.length}</span>
         </Link>
       </div>
     </div>

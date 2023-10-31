@@ -47,5 +47,5 @@ const productsSlice = createSlice({
     });
   },
 });
-
+export const { filterByPrice, getRelatedProduct } = productsSlice.actions;
 export default productsSlice.reducer;

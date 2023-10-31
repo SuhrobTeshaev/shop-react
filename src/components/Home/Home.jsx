@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import {filterByPrice} from './../../features/Product/ProductSlice';
+
 import Poster from "./../Poster/Poster";
 import Banner from "./../Banner/Banner";
 import Categories from "./../Categories/Categories";
-import Products from "./../Products/Products";
+import Products from "./../Product/Products";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,7 +16,7 @@ const Home = () => {
   } = useSelector((state) => state);
   useEffect(
     () => {
-      if ((!list, length)) return;
+      if ((!list.length)) return;
       dispatch(filterByPrice(100));
     },
     dispatch,

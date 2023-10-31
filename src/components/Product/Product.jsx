@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import s from "./../../styles/Product.module.css";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import ROUTES from './../../utils/Routes'
+import { ROUTES } from "../../utils/Routes";
 
 const SIZES = [4, 4.5, 5];
 const Product = (item) => {
@@ -50,8 +50,7 @@ const Product = (item) => {
               <div
                 onClick={() => setCurrentSize(size)}
                 className={`${s.sizes}
-               ${currentSize === size ? s.active : ""
-              }`}
+               ${currentSize === size ? s.active : ""}`}
                 key={size}
               >
                 {size}
@@ -61,14 +60,10 @@ const Product = (item) => {
         </div>
         <p className={s.description}>{description}</p>
         <div className={s.action}>
-          <button
-          onClick={addToCart}
-          className={s.add}
-          disabled={!currentSize}
-          >
+          <button onClick={addToCart} className={s.add} disabled={!currentSize}>
             Add to cart
-            </button>
-            <button className={s.favourite}>Add to favourites</button>
+          </button>
+          <button className={s.favourite}>Add to favourites</button>
         </div>
         <div className={s.bottom}>
           <div className={s.purchase}>33 people purchased</div>
