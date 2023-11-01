@@ -4,21 +4,24 @@ import { Link } from "react-router-dom";
 import s from "./../../styles/Footer.module.css";
 
 import LOGO from "./../../images/logo.svg";
+import { ROUTES } from "../../utils/Routes";
 
 const Footer = () => {
   return (
     <section className={s.footer}>
       <div className={s.logo}>
-        <Link to={"/"}>
+        <Link to={ROUTES.HOME}>
           <img src={LOGO} alt="Stuff" />
         </Link>
       </div>
+
       <div className={s.right}>
         Developed by{""}
         <a href="ссылка на гитхаб" target="_blank" rel="norefferer">
           Suhrob
         </a>
       </div>
+      
       <div className={s.social}>
         <a
           href="ссылка на фейсбук"

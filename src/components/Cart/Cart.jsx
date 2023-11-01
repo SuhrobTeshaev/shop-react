@@ -3,9 +3,11 @@ import s from "./../../styles/Cart.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemToCart } from "../../features/user/UserSlice";
 import { sumBy } from "../../utils/common";
+
 const Cart = () => {
   const dispatch = useDispatch();
   const { cart } = useSelector(({ user }) => user);
+
   const changeQuantity = (item, quantity) => {
     dispatch(addItemToCart({ ...item, quantity }));
   };
@@ -13,16 +15,18 @@ const Cart = () => {
   const removeItem = (id) => {
     dispatch(removeItemToCart(id));
   };
+
   return (
     <section className={s.cart}>
       <h2 className={s.title}>Your cart</h2>
       {!cart.length ? (
-        <div className={s.title}>Here is empty</div>
+        <div className={s.empty}>Here is empty</div>
       ) : (
         <>
           <div className={s.list}>
             {cart.map((item) => {
               const { title, category, images, price, id, quantity } = item;
+
               return (
                 <div className={s.item} key={id}>
                   <div
@@ -33,7 +37,9 @@ const Cart = () => {
                     <h3 className={s.name}>{title}</h3>
                     <div className={s.category}>{category.name}</div>
                   </div>
+
                   <div className={s.price}>{price}$</div>
+
                   <div className={s.quantity}>
                     <div
                       className={s.minus}
@@ -55,7 +61,9 @@ const Cart = () => {
                         </svg>
                       </div>
                     </div>
+
                     <span>{quantity}</span>
+
                     <div
                       className={s.plus}
                       onClick={() =>
@@ -76,7 +84,9 @@ const Cart = () => {
                       </div>
                     </div>
                   </div>
+
                   <div className={s.total}>{price * quantity}$</div>
+
                   <div className={s.close} onClick={() => removeItem(item.id)}>
                     <div className="icon">
                       <svg
@@ -95,6 +105,7 @@ const Cart = () => {
               );
             })}
           </div>
+
           <div className={s.actions}>
             <div className={s.total}>
               TOTAL PRICE:{""}
@@ -102,6 +113,7 @@ const Cart = () => {
                 {sumBy(cart.map(({ quantity, price }) => quantity * price))}$
               </span>
             </div>
+            
             <button className={s.proceed}>Proceed to checkout</button>
           </div>
         </>

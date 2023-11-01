@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { useDispatch } from "react-redux";
-import { createUsers } from '../../features/user/UserSlice';
+import { createUser } from '../../features/user/UserSlice';
 
 import s from  './../../styles/User.module.css';
 
@@ -24,7 +24,7 @@ import s from  './../../styles/User.module.css';
 
     if (!isNotEmpty) return;
 
-    dispatch(createUsers(values));
+    dispatch(createUser(values));
     closeForm();
   };
 

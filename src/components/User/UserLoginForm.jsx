@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import s from "./../../styles/User.module.css";
 
 import { useDispatch } from "react-redux";
-import { loginUsers } from "../../features/user/UserSlice";
+import { loginUser } from "../../features/user/UserSlice";
 
 const UserLoginForm = ({ toggleCurrentFormType, closeForm }) => {
   const dispatch = useDispatch();
@@ -18,9 +18,12 @@ const UserLoginForm = ({ toggleCurrentFormType, closeForm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const isNotEmpty = Object.values(values).every((val) => val);
+
     if (!isNotEmpty) return;
-    dispatch(loginUsers(values));
+
+    dispatch(loginUser(values));
     closeForm();
   };
 
@@ -77,7 +80,7 @@ const UserLoginForm = ({ toggleCurrentFormType, closeForm }) => {
         </button>
       </form>
     </div>
-  )
+  );
 };
 
 export default UserLoginForm;

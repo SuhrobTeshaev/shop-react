@@ -16,13 +16,15 @@ const Products = ({ title, products = [], style = {}, amount }) => {
               className={s.image}
               style={{ backgroundImage: `url(${images[0]})` }}
             />
+
             <div className={s.wrapper}>
               <h3 className={s.title}>{title}</h3>
               <div className={s.cat}>{cat}</div>
               <div className={s.info}>
                 <div className={s.prices}>
                   <div className={s.price}>{price}</div>
-                  <div className={s.oldPrice}>{Math.floor(price * 0.8)}$</div>
+                  <div className={s.oldPrice}>{Math.floor(price * 0.8)}$
+                  </div>
                 </div>
                 <div className={s.purchases}>
                   {Math.floor(Math.random() * 20 + 1)}purchased

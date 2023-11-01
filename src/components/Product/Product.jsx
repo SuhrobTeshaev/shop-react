@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import s from "./../../styles/Product.module.css";
 
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/Routes";
+
 import { addItemToCart } from "../../features/user/UserSlice";
 
 const SIZES = [4, 4.5, 5];
@@ -34,7 +35,7 @@ const Product = (item) => {
           className={s.current}
           style={{ backgroundImage: `url(${currentImage})` }}
         />
-        <div>
+        <div className={s['images-list']}>
           {images.map((image, i) => (
             <div
               key={i}
@@ -54,19 +55,21 @@ const Product = (item) => {
         <div className={s.sizes}>
           <span>Sizes:</span>
           <div className={s.list}>
-            {SIZES.map((size) => {
+            {SIZES.map((size) => (
               <div
                 onClick={() => setCurrentSize(size)}
-                className={`${s.sizes}
+                className={`${s.size}
                ${currentSize === size ? s.active : ""}`}
                 key={size}
               >
                 {size}
-              </div>;
-            })}
+              </div>
+            ))}
           </div>
         </div>
+
         <p className={s.description}>{description}</p>
+
         <div className={s.action}>
           <button onClick={addToCart} className={s.add} disabled={!currentSize}>
             Add to cart

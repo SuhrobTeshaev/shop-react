@@ -8,15 +8,16 @@ import Product from "./Product";
 import Products from "./Products";
 
 import {useGetProductQuery} from './../../features/api/apiSlice';
-import {getRelatedProduct} from './../../features/Product/ProductSlice';
+import {getRelatedProducts} from './../../features/Product/ProductSlice';
 
 const SingleProduct = () => {
 
   const dispatch = useDispatch();
-  const { id } = useParams;
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const { list, related } = useSelector(({ products }) => products);
+
   const { data, isLoading, isFetching, isSuccess } = useGetProductQuery({ id });
 
   useEffect(() => {
@@ -28,7 +29,7 @@ const SingleProduct = () => {
   useEffect(() => {
     if (!data || !list.length) return;
     
-    dispatch(getRelatedProduct(data.category.id));
+    dispatch(getRelatedProducts(data.category.id));
   }, [data, dispatch, list.length]);
 
   return !data ? (

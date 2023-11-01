@@ -10,6 +10,7 @@ import Products from "../Product/Products";
 const Category = () => {
   const { id } = useParams();
   const { list } = useSelector(({ categories }) => categories);
+
   const defaultValues = {
     title: "",
     price_min: 0,
@@ -42,7 +43,7 @@ const Category = () => {
   useEffect(() => {
     if (!isLoading) return;
 
-    if (!DataTransfer.length) return setEnd(true);
+    if (!data.length) return setEnd(true);
 
     setItems((_items) => [..._items, ...data]);
   }, [data, isLoading]);
@@ -70,9 +71,11 @@ const Category = () => {
     setParams(defaultParams);
     setEnd(false);
   };
+
   return (
     <section className={s.wrapper}>
       <h2>{cat?.name}</h2>
+      
       <form className={s.filters} onSubmit={handleSubmit}>
         <div className={s.filter}>
           <input
@@ -102,10 +105,12 @@ const Category = () => {
           />
           <span>Price to</span>
         </div>
+
         <button type="submit" hidden />
       </form>
+
       {isLoading ? (
-        <div className="proloader">Loading...</div>
+        <div className="preloader">Loading...</div>
       ) : !isSuccess || !items.length ? (
         <div className={s.back}>
           <span>No result</span>
@@ -119,6 +124,7 @@ const Category = () => {
           amount={items.length}
         />
       )}
+
       {!isEnd && (
         <div className={s.more}>
           <button

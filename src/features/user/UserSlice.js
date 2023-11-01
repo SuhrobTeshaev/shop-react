@@ -2,20 +2,21 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../utils/constants";
 import axios from "axios";
 
-export const createUsers = createAsyncThunk(
-  "users/createUsers",
+export const createUser = createAsyncThunk(
+  "users/createUser",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.post(`${BASE_URL}/users`, payload);
-      return response.data;
+      const res = await axios.post(`${BASE_URL}/users`, payload);
+      return res.data;
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
     }
   }
 );
-export const loginUsers = createAsyncThunk(
-  "users/loginUsers",
+
+export const loginUser = createAsyncThunk(
+  "users/loginUser",
   async (payload, thunkAPI) => {
     try {
       const res = await axios.post(`${BASE_URL}/users`, payload);
@@ -31,12 +32,12 @@ export const loginUsers = createAsyncThunk(
     }
   }
 );
-export const updateUsers = createAsyncThunk(
-  "users/updateUsers",
+export const updateUser = createAsyncThunk(
+  "users/updateUser",
   async (payload, thunkAPI) => {
     try {
-      const response = await axios.put(`${BASE_URL}/users/${payload.id}`, payload);
-      return response.data;
+      const res = await axios.put(`${BASE_URL}/users/${payload.id}`, payload);
+      return res.data;
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
@@ -49,7 +50,7 @@ const addCurrentUser = (state, { payload }) => {
 };
 
 const userSlice = createSlice({
-  name: "users",
+  name: "user",
   initialState: {
     currentUser: null,
     cart: [],
@@ -83,9 +84,9 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(createUsers.fulfilled, addCurrentUser);
-    builder.addCase(loginUsers.fulfilled, addCurrentUser);
-    builder.addCase(updateUsers.fulfilled, addCurrentUser);
+    builder.addCase(createUser.fulfilled, addCurrentUser);
+    builder.addCase(loginUser.fulfilled, addCurrentUser);
+    builder.addCase(updateUser.fulfilled, addCurrentUser);
   },
 });
 

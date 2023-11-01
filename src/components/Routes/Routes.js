@@ -9,8 +9,8 @@ import SingleCategory from './../Categories/SingleCategory';
 import Home from './../Home/Home';
 import Cart from './../Cart/Cart';
 
-const AppRoutes = () => {
-  return (
+const AppRoutes = () => (
+  
     <Routes>
         <Route index element={<Home/>}/>
         <Route path={ROUTES.PRODUCT} element={<SingleProduct/>}/>
@@ -20,7 +20,7 @@ const AppRoutes = () => {
 
 
     </Routes>
-  )
-}
+
+);
 
 export default AppRoutes;

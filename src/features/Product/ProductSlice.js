@@ -8,8 +8,8 @@ export const getProducts = createAsyncThunk(
   "products/getProducts",
   async (_, thunkAPI) => {
     try {
-      const response = await axios(`${BASE_URL}/products`);
-      return response.data;
+      const res = await axios(`${BASE_URL}/products`);
+      return res.data;
     } catch (err) {
       console.log(err);
       return thunkAPI.rejectWithValue(err);
@@ -29,7 +29,7 @@ const productsSlice = createSlice({
     filterByPrice: (state, { payload }) => {
       state.filtered = state.list.filter(({ price }) => price < payload);
     },
-    getRelatedProduct: (state, { payload }) => {
+    getRelatedProducts: (state, { payload }) => {
       const list = state.list.filter(({ category: { id } }) => id === payload);
       state.related = shuffle(list);
     },
@@ -48,5 +48,5 @@ const productsSlice = createSlice({
     });
   },
 });
-export const { filterByPrice, getRelatedProduct } = productsSlice.actions;
+export const { filterByPrice, getRelatedProducts } = productsSlice.actions;
 export default productsSlice.reducer;

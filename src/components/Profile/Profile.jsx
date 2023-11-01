@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-import {updateUsers} from './../../features/user/UserSlice';
+
+import {updateUser} from './../../features/user/UserSlice';
 
 import s from "./../../styles/Profile.module.css";
 
@@ -34,7 +34,7 @@ const Profile = () => {
 
     if (!isNotEmpty) return;
     
-    dispatch(updateUsers(values));
+    dispatch(updateUser(values));
   };
 
   return (
