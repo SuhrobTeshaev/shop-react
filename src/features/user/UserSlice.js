@@ -54,6 +54,7 @@ const userSlice = createSlice({
   initialState: {
     currentUser: null,
     cart: [],
+    favourites: [],
     formType: "signup",
     showForm: false,
     isLoading: false,
@@ -70,12 +71,30 @@ const userSlice = createSlice({
             : item;
         });
       } else newCart.push({ ...payload, quantity: 1 });
-      
+
       state.cart = newCart;
+    },
+    addItemToFavourites: (state, { payload }) => {
+      let newFavourites = [...state.favourites];
+      const found = state.favourites.find(({ id }) => id === payload.id);
+
+      if (found) {
+        newFavourites = newFavourites.map((item) => {
+          return item.id === payload.id
+            ? { ...item, quantity: payload.quantity || item.quantity + 1 }
+            : item;
+        });
+      } else newFavourites.push({ ...payload, quantity: 1 });
+
+      state.favourites = newFavourites;
+    },
+    removeItemToFavourites: (state, { payload }) => {
+      state.favourites = state.favourites.filter(({ id }) => id !== payload);
     },
     removeItemToCart: (state, { payload }) => {
       state.cart = state.cart.filter(({ id }) => id !== payload);
     },
+
     toggleForm: (state, { payload }) => {
       state.showForm = payload;
     },
@@ -90,6 +109,12 @@ const userSlice = createSlice({
   },
 });
 
-export const { addItemToCart, removeItemToCart, toggleForm, toggleFormType } =
-  userSlice.actions;
+export const {
+  addItemToCart,
+  removeItemToCart,
+  toggleForm,
+  toggleFormType,
+  addItemToFavourites,
+  removeItemToFavourites,
+} = userSlice.actions;
 export default userSlice.reducer;

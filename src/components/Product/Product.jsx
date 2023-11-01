@@ -6,7 +6,10 @@ import s from "./../../styles/Product.module.css";
 
 import { ROUTES } from "../../utils/Routes";
 
-import { addItemToCart } from "../../features/user/UserSlice";
+import {
+  addItemToCart,
+  addItemToFavourites,
+} from "../../features/user/UserSlice";
 
 const SIZES = [4, 4.5, 5];
 
@@ -27,7 +30,11 @@ const Product = (item) => {
   const addToCart = () => {
     dispatch(addItemToCart(item));
   };
-  
+
+  const addToFavourites = () => {
+    dispatch(addItemToFavourites(item));
+  };
+
   return (
     <section className={s.product}>
       <div className={s.images}>
@@ -35,7 +42,7 @@ const Product = (item) => {
           className={s.current}
           style={{ backgroundImage: `url(${currentImage})` }}
         />
-        <div className={s['images-list']}>
+        <div className={s["images-list"]}>
           {images.map((image, i) => (
             <div
               key={i}
@@ -74,7 +81,9 @@ const Product = (item) => {
           <button onClick={addToCart} className={s.add} disabled={!currentSize}>
             Add to cart
           </button>
-          <button className={s.favourite}>Add to favourites</button>
+          <button onClick={addToFavourites} className={s.add} disabled={!currentSize}>
+            Add to favourites
+          </button>
         </div>
         <div className={s.bottom}>
           <div className={s.purchase}>33 people purchased</div>

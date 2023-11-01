@@ -42,7 +42,7 @@ const Profile = () => {
       {currentUser ? (
         <span>You need to log in</span>
       ) : (
-        <form className={s.form} onSubmit={handleSubmit}>
+        <form className={s.form} >
           <div className={s.group}>
             <input
               type="email"
@@ -87,7 +87,7 @@ const Profile = () => {
               required
             />
           </div>
-          <button type="submit" className={s.submit}>
+          <button type="submit" className={s.submit} onSubmit={handleSubmit}>
             Update
           </button>
         </form>

@@ -18,7 +18,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const [searchValue, setSearchValue] = useState("");
-  const { currentUser, cart } = useSelector(({ user }) => user);
+  const { currentUser, favourites , cart } = useSelector(({ user }) => user);
 
   const [values, setValues] = useState({ name: "Guest", avatar: AVATAR });
 
@@ -54,9 +54,8 @@ const Header = () => {
             style={{ backgroundImage: `url(${values.avatar})` }}
           />
             <div className={s.username}>{values.name}</div>
-          
-        
       </div>
+
       <form className={s.form}>
         <div className={s.icon}>
           <svg
@@ -106,7 +105,7 @@ const Header = () => {
         )}
       </form>
       <div className={s.account}>
-        <Link className={s.favourites} to={ROUTES.HOME}>
+        <Link className={s.favourites} to={ROUTES.FAVOURITE}>
           <div className={s["icon-fav"]}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -119,6 +118,7 @@ const Header = () => {
               <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
             </svg>
           </div>
+          <span className={s.count}>{favourites.length}</span>
         </Link>
         <Link to={ROUTES.CART} className={s.cart}>
           <div className={s["icon-cart"]}>
